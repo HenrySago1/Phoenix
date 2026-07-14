@@ -110,6 +110,12 @@ El proyecto fue inicializado y configurado usando los siguientes comandos (no ne
 5. **Autogeneración del CRUD visual (Filament):**
    `php artisan make:filament-resource Customer --generate --soft-deletes --view`
    `php artisan make:filament-resource Product --generate --soft-deletes --view`
+   `php artisan make:filament-resource Order --generate --soft-deletes --view`
+6. **Lógica de Descuento de Inventario Automático:**
+   `php artisan make:observer OrderItemObserver --model=OrderItem`
+7. **Configuración de Rutas de API y Documentación de Swagger (PHP 8 Attributes):**
+   `php artisan install:api`
+   `php artisan l5-swagger:generate` (Comando vital para compilar los cambios en la API al Swagger)
 
 ---
 *Desarrollado con pasión por el equipo Phoenix Builders.*
