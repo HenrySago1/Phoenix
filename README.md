@@ -1,59 +1,115 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 Phoenix Orders - MVP (Versión 1)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Empresa:** Phoenix Financial Group
+**Equipo:** Phoenix Builders (José, Henry, Ronald, Nicole y Miguel)
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Stack Tecnológico y Versiones
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Este proyecto fue desarrollado bajo una **Arquitectura N-Capas** (Presentación, Aplicación, Dominio y Datos) utilizando las siguientes tecnologías:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Lenguaje:** PHP 8.2+
+- **Framework (Monolito):** Laravel 11.x
+- **Frontend Administrativo:** Filament PHP v3
+- **Base de Datos:** PostgreSQL
+- **Documentación de API:** L5-Swagger (OpenAPI 3.0)
+- **Control de Versiones:** Git & GitHub
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 📖 Cómo Levantar el Proyecto en Local (Guía para el Equipo)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Sigue estos pasos cuidadosamente para tener tu entorno local funcionando exactamente igual que en producción/desarrollo.
 
-## Laravel Sponsors
+### 1. Requisitos Previos
+Asegúrate de tener instalados:
+- PHP >= 8.2
+- Composer
+- Node.js y NPM
+- PostgreSQL (y tener PgAdmin o DBeaver para administrarlo)
+- Git
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. Clonar el repositorio
+Abre tu terminal y ejecuta:
+```bash
+git clone https://github.com/HenrySago1/Phoenix.git
+cd Phoenix
+```
 
-### Premium Partners
+### 3. Instalar Dependencias
+Instala los paquetes de backend (PHP) y frontend (Node):
+```bash
+composer install
+npm install && npm run build
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 4. Configurar el Entorno (.env)
+Laravel necesita su archivo de configuración:
+```bash
+cp .env.example .env
+```
+Abre el archivo `.env` que se acaba de crear y **configura tu conexión a PostgreSQL**. Asegúrate de que los datos coincidan con tu servidor local:
+```env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=phoenix_orders
+DB_USERNAME=postgres
+DB_PASSWORD=tu_contraseña_aqui
+```
+*(⚠️ Importante: Crea una base de datos vacía llamada `phoenix_orders` en tu PostgreSQL antes de continuar).*
 
-## Contributing
+### 5. Generar la Clave de la App y Migrar la BD
+```bash
+php artisan key:generate
+php artisan migrate --seed
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 6. Levantar el Servidor
+```bash
+php artisan serve
+```
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🔐 Accesos del Sistema
 
-## Security Vulnerabilities
+### 1. Panel Administrativo (Filament)
+- **URL:** [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
+- **Usuario Admin Creado por Defecto:**
+  - **Email:** `admin@phoenix.com`
+  - **Password:** `admin123`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+*(Nota: Si necesitas crear otro admin, ejecuta: `php artisan make:filament-user`)*
 
-## License
+### 2. Documentación API (Swagger)
+- **URL:** [http://127.0.0.1:8000/api/documentation](http://127.0.0.1:8000/api/documentation)
+- Para regenerar la documentación si haces cambios en el código de los Controladores:
+  `php artisan l5-swagger:generate`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🏗️ Historial de Construcción (Para Referencia del Equipo)
+
+El proyecto fue inicializado y configurado usando los siguientes comandos (no necesitas correrlos, esto es solo para que entiendan cómo se construyó):
+
+1. **Creación del proyecto base:**
+   `composer create-project laravel/laravel Phoenix`
+2. **Instalación de Filament:**
+   `composer require filament/filament:"^3.2" -W`
+   `php artisan filament:install --panels`
+3. **Instalación de Swagger:**
+   `composer require darkaonline/l5-swagger`
+   `php artisan vendor:publish --provider="L5Swagger\L5SwaggerServiceProvider"`
+4. **Generación de las Migraciones:**
+   `php artisan make:migration create_customers_table`
+   `php artisan make:migration create_products_table`
+   `php artisan make:migration create_orders_table`
+   `php artisan make:migration create_order_items_table`
+5. **Autogeneración del CRUD visual (Filament):**
+   `php artisan make:filament-resource Customer --generate --soft-deletes --view`
+   `php artisan make:filament-resource Product --generate --soft-deletes --view`
+
+---
+*Desarrollado con pasión por el equipo Phoenix Builders.*
