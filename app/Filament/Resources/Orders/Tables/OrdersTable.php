@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Customers\Tables;
+namespace App\Filament\Resources\Orders\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -8,12 +8,11 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
-class CustomersTable
+class OrdersTable
 {
     public static function configure(Table $table): Table
     {
@@ -22,18 +21,21 @@ class CustomersTable
                 TextColumn::make('id')
                     ->label('ID')
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('full_name')
-                    ->label('Nombre Completo')
+                TextColumn::make('customer.full_name')
+                    ->label('Cliente')
                     ->searchable(),
-                TextColumn::make('email')
-                    ->label('Correo Electrónico')
+                TextColumn::make('order_date')
+                    ->label('Fecha')
+                    ->dateTime('d/m/Y H:i')
+                    ->sortable(),
+                TextColumn::make('status')
+                    ->label('Estado')
+                    ->badge()
                     ->searchable(),
-                TextColumn::make('phone')
-                    ->label('Teléfono')
-                    ->searchable(),
-                IconColumn::make('is_active')
-                    ->label('Activo')
-                    ->boolean(),
+                TextColumn::make('total')
+                    ->label('Total (Bs.)')
+                    ->money('BOB')
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Creado el')
                     ->dateTime()
@@ -60,6 +62,7 @@ class CustomersTable
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
                     RestoreBulkAction::make(),
                 ]),
             ]);

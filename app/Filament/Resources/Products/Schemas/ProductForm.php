@@ -14,19 +14,30 @@ class ProductForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->required(),
+                    ->label('Nombre del Producto')
+                    ->required()
+                    ->maxLength(255),
                 Textarea::make('description')
-                    ->columnSpanFull(),
+                    ->label('Descripción')
+                    ->maxLength(65535)
+                    ->columnSpanFull()
+                    ->default(null),
                 TextInput::make('price')
+                    ->label('Precio (Bs.)')
                     ->required()
                     ->numeric()
-                    ->prefix('$'),
+                    ->gt(0)
+                    ->default(0.00),
                 TextInput::make('stock')
+                    ->label('Stock Disponible')
                     ->required()
                     ->numeric()
+                    ->gte(0)
                     ->default(0),
                 Toggle::make('is_active')
-                    ->required(),
+                    ->label('¿Activo?')
+                    ->required()
+                    ->default(true),
             ]);
     }
 }

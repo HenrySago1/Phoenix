@@ -13,15 +13,24 @@ class CustomerForm
         return $schema
             ->components([
                 TextInput::make('full_name')
-                    ->required(),
+                    ->label('Nombre Completo')
+                    ->required()
+                    ->maxLength(255),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label('Correo Electrónico')
                     ->email()
-                    ->required(),
+                    ->required()
+                    ->unique(ignoreRecord: true)
+                    ->maxLength(255),
                 TextInput::make('phone')
-                    ->tel(),
+                    ->label('Teléfono')
+                    ->tel()
+                    ->maxLength(255)
+                    ->default(null),
                 Toggle::make('is_active')
-                    ->required(),
+                    ->label('¿Activo?')
+                    ->required()
+                    ->default(true),
             ]);
     }
 }
